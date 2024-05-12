@@ -1,19 +1,28 @@
 # 0x09. React Redux Connectors and Providers
-# Learning Objectives
-At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
+Overview
+The connect() function connects a React component to a Redux store.
 
-- Redux connectors and how to use them
-- The different functions you can pass to a connector (mapStateToProps, mapDispatchToPros)
-- How to map an action creator to a component using a connector
-- How to map an async action creator to a component with Redux Thunk
-- What Redux Providers are and how to set up your app’s store
-- How you can improve a connector’s performance using Reselect
-- How to use Redux’s dev tools to debug the state of your application
+It provides its connected component with the pieces of the data it needs from the store, and the functions it can use to dispatch actions to the store.
 
-# Requirements
-- Allowed editors: vi, vim, emacs, Visual Studio Code
-- All your files should end with a new line
-- A README.md file, at the root of the folder of the project, is mandatory
-- All your files will be interpreted/compiled on Ubuntu 18.04 LTS using node 12.x.x and npm 6.x.x
-- Push all of your files, including package.json and .babelrc
-- All of your functions must be exported
+It does not modify the component class passed to it; instead, it returns a new, connected component class that wraps the component you passed in.
+
+function connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)
+
+The mapStateToProps and mapDispatchToProps deals with your Redux store’s state and dispatch, respectively. state and dispatch will be supplied to your mapStateToProps or mapDispatchToProps functions as the first argument.
+
+The returns of mapStateToProps and mapDispatchToProps are referred to internally as stateProps and dispatchProps, respectively. They will be supplied to mergeProps, if defined, as the first and the second argument, where the third argument will be ownProps. The combined result, commonly referred to as mergedProps, will then be supplied to your connected component.
+
+connect() Parameters
+connect accepts four different parameters, all optional. By convention, they are called:
+
+mapStateToProps?: Function
+mapDispatchToProps?: Function | Object
+mergeProps?: Function
+options?: Object
+mapStateToProps?: (state, ownProps?) => Object
+If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates. This means that any time the store is updated, mapStateToProps will be called. The results of mapStateToProps must be a plain object, which will be merged into the wrapped component’s props. If you don't want to subscribe to store updates, pass null or undefined in place of mapStateToProps.
+
+Parameters
+state: Object
+ownProps?: Object
+A mapStateToProps function takes a maximum of two parameters. The number of declared function parameters (a.k.a. arity) affects when it will be called. This also determines whether the function will receive ownProps. See notes here.
